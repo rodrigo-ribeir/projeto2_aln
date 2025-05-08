@@ -1,3 +1,5 @@
+# questão 1 - item b
+
 import numpy as np
 from numpy.linalg import cond
 

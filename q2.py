@@ -16,6 +16,8 @@ def poly_ls(t, n):
         numpy.ndarray: Matriz de Vandermonde de dimensões (len(t)) x (n+1).
     """
     m = len(t)
+    # a função foi levemente alterada para receber t
+    #  (vetor de pontos fornecido) e calcular m (quantidade de pontos)
     A = np.zeros((m, n + 1))
     for j in range(n + 1):
         A[:, j] = t**j

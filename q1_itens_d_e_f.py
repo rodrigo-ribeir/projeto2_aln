@@ -33,22 +33,19 @@ for n in n_valores:
     kappa = cond(A)
     condicionamentos.append(kappa)
 
-plt.figure(figsize=(10, 6))
-plt.plot(n_valores, condicionamentos, marker='o')
-plt.xlabel('Grau do Polinômio (n)')
-plt.ylabel('Número de Condição da Matriz A')
-plt.title(f'Condicionamento da Matriz A para m={m_fixo} e n até {n_max}')
-plt.yscale('log')
-plt.grid(True)
-plt.show()
+if __name__ == "__main___":
+    plt.figure(figsize=(10, 6))
+    plt.plot(n_valores, condicionamentos, marker='o')
+    plt.xlabel('Grau do Polinômio (n)')
+    plt.ylabel('Número de Condição da Matriz A')
+    plt.title(f'Condicionamento da Matriz A para m={m_fixo} e n até {n_max}')
+    plt.yscale('log')
+    plt.grid(True)
+    plt.show()
 
-print("\nValores do número de condição:")
-for n, kappa in zip(n_valores, condicionamentos):
-    print(f"n = {n}: Condicionamento = {kappa:.2e}")
-
-import numpy as np
-from numpy.linalg import cond
-import matplotlib.pyplot as plt
+    print("\nValores do número de condição:")
+    for n, kappa in zip(n_valores, condicionamentos):
+        print(f"n = {n}: Condicionamento = {kappa:.2e}")
 
 def poly_ls_centralizado(m, n):
     """
@@ -68,40 +65,41 @@ def poly_ls_centralizado(m, n):
             A[i, j] = np.sum(t**(i + j))
     return A
 
-m_fixo = 100
-n_max = 20
-n_valores = np.arange(1, n_max + 1)
-condicionamentos_original = []
-condicionamentos_centralizado = []
+if __name__ == '__main__':
+    m_fixo = 100
+    n_max = 20
+    n_valores = np.arange(1, n_max + 1)
+    condicionamentos_original = []
+    condicionamentos_centralizado = []
 
-for n in n_valores:
+    for n in n_valores:
 
-    A_original = poly_ls(m_fixo, n)
-    kappa_original = cond(A_original)
-    condicionamentos_original.append(kappa_original)
+        A_original = poly_ls(m_fixo, n)
+        kappa_original = cond(A_original)
+        condicionamentos_original.append(kappa_original)
 
-    A_centralizado = poly_ls_centralizado(m_fixo, n)
-    kappa_centralizado = cond(A_centralizado)
-    condicionamentos_centralizado.append(kappa_centralizado)
+        A_centralizado = poly_ls_centralizado(m_fixo, n)
+        kappa_centralizado = cond(A_centralizado)
+        condicionamentos_centralizado.append(kappa_centralizado)
 
-plt.figure(figsize=(12, 6))
-plt.plot(n_valores, condicionamentos_original, marker='o', label='t = i/m (Original)')
-plt.plot(n_valores, condicionamentos_centralizado, marker='x', label='t = i/m - 1/2 (Centralizado)')
-plt.xlabel('Grau do Polinômio (n)')
-plt.ylabel('Número de Condição da Matriz A')
-plt.title(f'Comparação do Condicionamento da Matriz A para m={m_fixo}')
-plt.yscale('log')
-plt.grid(True)
-plt.legend()
-plt.savefig('comparacao_condicionamento.png')
-plt.show()
-
-
-print("\nValores do número de condição (t = i/m):")
-for n, kappa in zip(n_valores, condicionamentos_original):
-    print(f"n = {n}: Condicionamento = {kappa:.2e}")
+    plt.figure(figsize=(12, 6))
+    plt.plot(n_valores, condicionamentos_original, marker='o', label='t = i/m (Original)')
+    plt.plot(n_valores, condicionamentos_centralizado, marker='x', label='t = i/m - 1/2 (Centralizado)')
+    plt.xlabel('Grau do Polinômio (n)')
+    plt.ylabel('Número de Condição da Matriz A')
+    plt.title(f'Comparação do Condicionamento da Matriz A para m={m_fixo}')
+    plt.yscale('log')
+    plt.grid(True)
+    plt.legend()
+    plt.savefig('comparacao_condicionamento.png')
+    plt.show()
 
 
-print("\nValores do número de condição (t = i/m - 1/2):")
-for n, kappa in zip(n_valores, condicionamentos_centralizado):
-    print(f"n = {n}: Condicionamento = {kappa:.2e}")
+    print("\nValores do número de condição (t = i/m):")
+    for n, kappa in zip(n_valores, condicionamentos_original):
+        print(f"n = {n}: Condicionamento = {kappa:.2e}")
+
+
+    print("\nValores do número de condição (t = i/m - 1/2):")
+    for n, kappa in zip(n_valores, condicionamentos_centralizado):
+        print(f"n = {n}: Condicionamento = {kappa:.2e}")
